@@ -48,7 +48,7 @@ public class serviceController{
 	public ArrayList<String> services() {
 		return Services.services;
 	}
-	@RequestMapping(value="/user/services/search/{serviceName}",method = RequestMethod.GET)
+	@RequestMapping(value="/user/services/{serviceName}",method = RequestMethod.GET)
 	public ArrayList<String> search(@PathVariable("serviceName") String serviceName){
 		if(serviceName.equals("mobileRecharge")) {
 			Services mobile = new MobileService();
@@ -68,7 +68,7 @@ public class serviceController{
 		}
 		return null;
 	}
-	@RequestMapping(value="/user/services/create/{serviceName}/{serviceProvider}/{paymentMethod}",method = RequestMethod.POST)
+	@RequestMapping(value="/user/services/{serviceName}/{serviceProvider}/{paymentMethod}",method = RequestMethod.POST)
 	public Map<String,String> create(@PathVariable("serviceName") String serviceName,@PathVariable("serviceProvider") String serviceProvider,@PathVariable("paymentMethod") String paymentMethod,HttpServletRequest request) {
 		String body;
 		double price=0;
@@ -100,7 +100,7 @@ public class serviceController{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if(serviceName.equals("mobileRecharge")) {
+		if(serviceName.equals("MobileRecharge")) {
 			if(!serviceProvider.equals("Orange")&& !serviceProvider.equals("Etisalat") && !serviceProvider.equals("We") && !serviceProvider.equals("Vodafone")) {
 				map.put("ERROR","this service provider is not available");
 				return map;
@@ -128,7 +128,7 @@ public class serviceController{
 					map.put("payment status","payment with credit card is done successfully");
 					transactionCounter++;
 					counter++;
-					Transactions.addTransaction(counter, disPrice, serviceName, UserEmail);
+					Transactions.addTransaction(counter, disPrice,serviceProvider, serviceName, UserEmail);
 					map.put("transaction ID","Your transaction id is " + counter + "(must be known so you can request rufund)");
 					
 				}
@@ -149,7 +149,7 @@ public class serviceController{
 					map.put("payment status","payment with cash is done successfully");
 					transactionCounter++;
 					counter++;
-					Transactions.addTransaction(counter, disPrice, serviceName, UserEmail);
+					Transactions.addTransaction(counter, disPrice,serviceProvider ,serviceName, UserEmail);
 					map.put("transaction ID","Your transaction id is " + counter + "(must be known so you can request rufund)");
 				}
 				else if (paymentMethod.equals("wallet")){ //wallet
@@ -185,7 +185,7 @@ public class serviceController{
 						map.put("walletBalance",Double.toString(userWallet.getBalance()));
 						transactionCounter++;
 						counter++;
-						Transactions.addTransaction(counter, disPrice, serviceName, UserEmail);
+						Transactions.addTransaction(counter, disPrice, serviceProvider,serviceName, UserEmail);
 						map.put("transaction ID","Your transaction id is " + counter + "(must be known so you can request rufund)");
 						check=false;
 					}
@@ -227,7 +227,7 @@ public class serviceController{
 				map.put("payment status","payment with cash is done successfully");
 				transactionCounter++;
 				counter++;
-				Transactions.addTransaction(counter, disPrice, serviceName, UserEmail);
+				Transactions.addTransaction(counter, disPrice, serviceProvider,serviceName, UserEmail);
 				map.put("transaction ID","Your transaction id is " + counter + "(must be known so you can request rufund)");
 			}
 			else if(paymentMethod.equals("cash"))//cash
@@ -247,7 +247,7 @@ public class serviceController{
 				map.put("payment status","payment with cash is done successfully");
 				transactionCounter++;
 				counter++;
-				Transactions.addTransaction(counter, disPrice, serviceName, UserEmail);
+				Transactions.addTransaction(counter, disPrice, serviceProvider,serviceName, UserEmail);
 				map.put("transaction ID","Your transaction id is " + counter + "(must be known so you can request rufund)");
 			}
 			else {
@@ -280,7 +280,7 @@ public class serviceController{
 				map.put("payment status","payment with cash is done successfully");
 				transactionCounter++;
 				counter++;
-				Transactions.addTransaction(counter, disPrice, serviceName, UserEmail);
+				Transactions.addTransaction(counter, disPrice, serviceProvider,serviceName, UserEmail);
 				map.put("transaction ID","Your transaction id is " + counter + "(must be known so you can request rufund)");
 			}
 			else if(paymentMethod.equals("cash"))//cash
@@ -300,7 +300,7 @@ public class serviceController{
 				map.put("payment status","payment with cash is done successfully");
 				transactionCounter++;
 				counter++;
-				Transactions.addTransaction(counter, disPrice, serviceName, UserEmail);
+				Transactions.addTransaction(counter, disPrice, serviceProvider,serviceName, UserEmail);
 				map.put("transaction ID","Your transaction id is " + counter + "(must be known so you can request rufund)");
 			}
 			else {
@@ -332,7 +332,7 @@ public class serviceController{
 				map.put("payment status","payment with cash is done successfully");
 				transactionCounter++;
 				counter++;
-				Transactions.addTransaction(counter, disPrice, serviceName, UserEmail);
+				Transactions.addTransaction(counter, disPrice, serviceProvider,serviceName, UserEmail);
 				map.put("transaction ID","Your transaction id is " + counter + "(must be known so you can request rufund)");
 			}
 			else if(paymentMethod.equals("cash"))//cash
@@ -352,7 +352,7 @@ public class serviceController{
 				map.put("payment status","payment with cash is done successfully");
 				transactionCounter++;
 				counter++;
-				Transactions.addTransaction(counter, disPrice, serviceName, UserEmail);
+				Transactions.addTransaction(counter, disPrice, serviceProvider,serviceName, UserEmail);
 				map.put("transaction ID","Your transaction id is " + counter + "(must be known so you can request rufund)");
 			}
 			else {

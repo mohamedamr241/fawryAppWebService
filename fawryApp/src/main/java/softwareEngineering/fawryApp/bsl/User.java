@@ -1,13 +1,13 @@
 package softwareEngineering.fawryApp.bsl;
 import java.util.*;
 
-import org.springframework.stereotype.Service;
+
 
 import softwareEngineering.fawryApp.models.Account;
 import softwareEngineering.fawryApp.models.TransactionEntity;
 import softwareEngineering.fawryApp.models.Transactions;
 
-@Service
+
 public class User implements Observer{
 	private Admin admin = new Admin();
 	public ArrayList<String> notifications = new ArrayList<String>();
@@ -38,9 +38,9 @@ public class User implements Observer{
 		return "Account created successfully";
 	}
 	
-	public static void requestRefund(int id, double amount, String service, String email) 
+	public static void requestRefund(int id, double amount, String serviceProvider,String service, String email) 
 	{
-		TransactionEntity obj = new TransactionEntity(id, amount, service, email);
+		TransactionEntity obj = new TransactionEntity(id, amount, serviceProvider,service, email);
 		Admin.reqRefundList.add(obj);
 		System.out.println("Your request refund is submited, it will be processed and you'll get notification");
 	}

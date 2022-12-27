@@ -7,10 +7,10 @@ import org.springframework.stereotype.Component;
 import softwareEngineering.fawryApp.models.Account;
 import softwareEngineering.fawryApp.models.TransactionEntity;
 import softwareEngineering.fawryApp.models.Transactions;
-@Component
+
 public class Admin implements Subject{
 	public static ArrayList<TransactionEntity> reqRefundList = new ArrayList<TransactionEntity>();
-	static ArrayList<Observer> systemUsers = new ArrayList<Observer>();
+	public static ArrayList<Observer> systemUsers = new ArrayList<Observer>();
 	public String signIn(String email, String pass)
 	{
 		if(Account.adminEmail.equals(email)&& Account.adminPass.equals(pass))
@@ -50,7 +50,6 @@ public class Admin implements Subject{
 		}
 		
 	}
-
 	@Override
 	public void subscribe(Observer ob) {
 		systemUsers.add(ob);
