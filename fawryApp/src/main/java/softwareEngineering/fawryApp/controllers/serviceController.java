@@ -32,10 +32,8 @@ import softwareEngineering.fawryApp.bsl.Payment;
 import softwareEngineering.fawryApp.bsl.Services;
 import softwareEngineering.fawryApp.bsl.SpecificDiscount;
 import softwareEngineering.fawryApp.bsl.Wallet;
-import softwareEngineering.fawryApp.bsl.personbsl;
 
 import softwareEngineering.fawryApp.models.Account;
-import softwareEngineering.fawryApp.models.Person;
 import softwareEngineering.fawryApp.models.ServiceProviders;
 import softwareEngineering.fawryApp.models.Transactions;
 import softwareEngineering.fawryApp.models.We;
