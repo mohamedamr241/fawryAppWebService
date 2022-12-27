@@ -44,11 +44,13 @@ public class serviceController{
 	int transactionCounter = 0;
 	static int counter = 0;
 	double disPrice;
+	
 	@RequestMapping(value="/user/services",method = RequestMethod.GET)
 	public ArrayList<String> services() {
-		return Services.services;
+		return Services.displayServices();
 	}
-	@RequestMapping(value="/user/services/search/{serviceName}",method = RequestMethod.GET)
+	
+	@RequestMapping(value="/user/services/{serviceName}",method = RequestMethod.GET)
 	public ArrayList<String> search(@PathVariable("serviceName") String serviceName){
 		if(serviceName.equals("mobileRecharge")) {
 			Services mobile = new MobileService();
@@ -68,7 +70,10 @@ public class serviceController{
 		}
 		return null;
 	}
-	@RequestMapping(value="/user/services/create/{serviceName}/{serviceProvider}/{paymentMethod}",method = RequestMethod.POST)
+	
+
+
+	@RequestMapping(value="/user/services/{serviceName}/{serviceProvider}/{paymentMethod}",method = RequestMethod.POST)
 	public Map<String,String> create(@PathVariable("serviceName") String serviceName,@PathVariable("serviceProvider") String serviceProvider,@PathVariable("paymentMethod") String paymentMethod,HttpServletRequest request) {
 		String body;
 		double price=0;
