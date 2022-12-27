@@ -101,7 +101,7 @@ public class serviceController{
 			e.printStackTrace();
 		}
 		if(serviceName.equals("mobileRecharge")) {
-			if(!serviceProvider.equals("Orange")|| !serviceProvider.equals("Etisalat") || !serviceProvider.equals("We") || !serviceProvider.equals("Vodafone")) {
+			if(!serviceProvider.equals("Orange")&& !serviceProvider.equals("Etisalat") && !serviceProvider.equals("We") && !serviceProvider.equals("Vodafone")) {
 				map.put("ERROR","this service provider is not available");
 				return map;
 			}
@@ -204,7 +204,7 @@ public class serviceController{
 			}
 		}
 		if(serviceName.equals("Landline")){
-			if(!serviceProvider.equals("MonthlyReceipt")|| !serviceProvider.equals("QuarterReceipt")) {
+			if(!serviceProvider.equals("MonthlyReceipt")&& !serviceProvider.equals("QuarterReceipt")) {
 				map.put("ERROR","this service provider is not available");
 				return map;
 			}
@@ -257,7 +257,7 @@ public class serviceController{
 
 		}
 		if(serviceName.equals("InternetPayment")){
-			if(!serviceProvider.equals("Orange")|| !serviceProvider.equals("Etisalat") || !serviceProvider.equals("We") || !serviceProvider.equals("Vodafone")) {
+			if(!serviceProvider.equals("Orange")&& !serviceProvider.equals("Etisalat") && !serviceProvider.equals("We") && !serviceProvider.equals("Vodafone")) {
 				map.put("ERROR","this service provider is not available");
 				return map;
 			}
@@ -309,7 +309,7 @@ public class serviceController{
 			}
 		}
 		if(serviceName.equals("Donations")){
-			if(!serviceProvider.equals("CancerHospital")|| !serviceProvider.equals("Schools") || !serviceProvider.equals("NGOs")) {
+			if(!serviceProvider.equals("CancerHospital")&& !serviceProvider.equals("Schools") && !serviceProvider.equals("NGOs")) {
 				map.put("ERROR","this service provider is not available");
 				return map;
 			}

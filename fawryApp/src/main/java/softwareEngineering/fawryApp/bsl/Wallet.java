@@ -12,10 +12,10 @@ public class Wallet implements Payment{
 		return  amount;
 	}
 	
-	public void chargeViaCreditCard(double balance)
+	public String chargeViaCreditCard(double balance)
 	{
 		this.balance += balance;
-		System.out.println("wallet is charged with " + balance +" successfully.");
+		return "wallet is charged with " + balance +" successfully.";
 	}
 	
 	public double getBalance()
