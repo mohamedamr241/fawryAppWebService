@@ -29,8 +29,8 @@ public class discountController{
 	@RequestMapping(value="/admin/discounts/{serviceName}/{discount}",method = RequestMethod.POST)
 	public String addDiscount(@PathVariable("serviceName") String serviceName,@PathVariable("discount") int discount) {
 		boolean check =false;
-		for(int i=0;i<Services.services.size();i++) {
-			if(serviceName.equals(Services.services.get(i))) {
+		for(int i=0;i<Services.displayServices().size();i++) {
+			if(serviceName.equals(Services.displayServices().get(i))) {
 				check = true;
 				break;
 			}
