@@ -20,6 +20,6 @@ public class discountController{
 			System.out.println(" has discount " + entry.getValue() + " $");
 		}
 		
-		return Services.services;
+		return Services.displayServices();
 	}
 }

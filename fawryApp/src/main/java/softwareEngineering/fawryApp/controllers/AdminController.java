@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import softwareEngineering.fawryApp.bsl.Admin;
 import softwareEngineering.fawryApp.models.Account;
 @RestController
-public class adminController{
+public class AdminController{
 	private Admin admin = new Admin();
 	@RequestMapping(value="/admin/signIn",method = RequestMethod.POST)
 	public String signIn(@RequestBody Account acc) {

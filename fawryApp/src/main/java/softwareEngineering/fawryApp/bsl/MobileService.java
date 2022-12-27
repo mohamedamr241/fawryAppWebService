@@ -8,16 +8,25 @@ import softwareEngineering.fawryApp.models.We;
 
 public class MobileService extends Services{
 	
-	protected void setData()
+	public MobileService()
 	{
-		paymentMethods.add("CreditCard");
-		paymentMethods.add("Cash");
-		paymentMethods.add("Wallet");
+		super();
+	}
+	protected void setProviders()
+	{
 		serviceProviders.add("We");
 		serviceProviders.add("Etisalat");
 		serviceProviders.add("Orange");
 		serviceProviders.add("Vodafone");
 	}
+	
+	protected void setPayMethods()
+	{
+		paymentMethods.add("CreditCard");
+		paymentMethods.add("Cash");
+		paymentMethods.add("Wallet");
+	}
+	
 	public ServiceProviders createServiceProvider(String n) {
 		ServiceProviders sp = null;
 		if(n.equals("We")) {
@@ -40,6 +49,7 @@ public class MobileService extends Services{
 
 		
 	}
+
 
 
 }
