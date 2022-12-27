@@ -6,14 +6,9 @@ import softwareEngineering.fawryApp.models.ServiceProviders;
 
 public class LandlineService extends Services{
 
-	
-	@Override
-	protected void setData() {
-		paymentMethods.add("CreditCard");
-		paymentMethods.add("Cash");
-		serviceProviders.add("MonthlyReceipt");
-		serviceProviders.add("QuarterReceipt");
-		
+	public LandlineService()
+	{
+		super();
 	}
 	@Override
 	public ServiceProviders createServiceProvider(String n) {
@@ -25,6 +20,16 @@ public class LandlineService extends Services{
 			sp = new QuarterReceipt();
 		
 		return sp;
+	}
+	@Override
+	protected void setPayMethods() {
+		paymentMethods.add("CreditCard");
+		paymentMethods.add("Cash");		
+	}
+	@Override
+	protected void setProviders() {
+		serviceProviders.add("MonthlyReceipt");
+		serviceProviders.add("QuarterReceipt");		
 	}
 
 //	@Override

@@ -15,7 +15,7 @@ import softwareEngineering.fawryApp.models.Account;
 import softwareEngineering.fawryApp.models.TransactionEntity;
 import softwareEngineering.fawryApp.models.Transactions;
 @RestController
-public class adminController{
+public class AdminController{
 	private Admin admin = new Admin();
 	@RequestMapping(value="/admin/signIn",method = RequestMethod.POST)
 	public String signIn(@RequestBody Account acc) {

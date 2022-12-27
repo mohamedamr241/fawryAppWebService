@@ -8,25 +8,35 @@ import softwareEngineering.fawryApp.models.ServiceProviders;
 public abstract class Services {
 	public Handler providerHandler;
 	Payment payMethod;
-	public static ArrayList<String> services = new ArrayList<String>(Arrays.asList("MobileRecharge","Landline","InternetPayment","Donations"));
-	ArrayList<String> serviceProviders = new ArrayList<String>();
-	ArrayList<String> paymentMethods = new ArrayList<String>();
+	private static ArrayList<String> services = new ArrayList<String>(Arrays.asList("MobileRecharge","Landline","InternetPayment","Donations"));
+	protected ArrayList<String> serviceProviders = new ArrayList<String>();
+	protected ArrayList<String> paymentMethods = new ArrayList<String>();
+
 	public Services()
 	{
-		setData();
+		setProviders();
+		setPayMethods();
 	}
+	
 	public abstract ServiceProviders createServiceProvider(String num);
-	protected abstract void setData();
+	protected abstract void setPayMethods();
+	protected abstract void setProviders();
+	
 	public ArrayList<String> displayProviders() {
 		return serviceProviders;
-	}
-	public ServiceProviders orderServiceProvider(String num) {
-		ServiceProviders serv = createServiceProvider(num);
-		return serv;
 	}
 	
 	public ArrayList<String> displayPayMethods() {
 		return paymentMethods;
+	}
+	
+	public static ArrayList<String> displayServices() {
+		return services;
+	}
+	
+	public ServiceProviders orderServiceProvider(String num) {
+		ServiceProviders serv = createServiceProvider(num);
+		return serv;
 	}
 	
 	public void setPayMethod(Payment payMethod)

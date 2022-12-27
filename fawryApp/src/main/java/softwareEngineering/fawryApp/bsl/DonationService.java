@@ -7,15 +7,24 @@ import softwareEngineering.fawryApp.models.ServiceProviders;
 
 public class DonationService extends Services {
 
-	protected void setData()
+
+	public DonationService()
 	{
+		super();
+	}
+	
+	@Override
+	protected void setPayMethods() {
 		paymentMethods.add("CreditCard");
-		paymentMethods.add("Cash");
+		paymentMethods.add("Cash");		
+	}
+	@Override
+	protected void setProviders() {
 		serviceProviders.add("CancerHospital");
 		serviceProviders.add("Schools");
-		serviceProviders.add("NGOs");
-		
-	}
+		serviceProviders.add("NGOs");		
+	}	
+	
 	public ServiceProviders createServiceProvider(String n) {
 		ServiceProviders sp = null;
 		if(n.equals("CancerHospital")) {
@@ -30,5 +39,6 @@ public class DonationService extends Services {
 		return sp;
 
 		
-	}	
+	}
+
 }
