@@ -34,15 +34,13 @@ public class RefundController{
 		return admin.getrefundRequestList();
 	}
 	
-	@PostMapping(value = "/admin/processRefund/{transId}")
+	@GetMapping(value = "/admin/processRefund/{transId}")
 	public String proccessRefund(@PathVariable("transId") int transId)
 	{
-		if(admin.processRefund(transId))
-			return "Refund request with id " + transId + " is correct";
-		return "Refund request with id " + transId + " is incorrect";
+		return admin.processRefund(transId);
 	}
 	
-	@PostMapping(value = "/admin/accOrRej/{transId}/{decision}")
+	@GetMapping(value = "/admin/processRefund/{transId}/{decision}")
 	public String accOrRej(@PathVariable("transId") int transId, @PathVariable("decision") String decision)
 	{
 		return admin.accOrRej(decision, transId);

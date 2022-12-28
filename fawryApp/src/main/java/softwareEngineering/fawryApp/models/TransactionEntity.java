@@ -4,22 +4,22 @@ public class TransactionEntity {
 	public int transId;
 	public double amount;
 	public String serviceName;
-	public String serviceProvider;
 	public String userEmail;
-	public TransactionEntity(int transId, double amount,String serviceProvider,String serviceName, String userEmail) {
+	public String serviceProvider;//??
+	public TransactionEntity(int transId, double amount,String serviceProvider, String serviceName, String userEmail) {
 		this.transId = transId;
 		this.amount = amount;
-		this.serviceProvider=serviceProvider;
 		this.serviceName = serviceName;
 		this.userEmail = userEmail;
+		this.serviceProvider = serviceProvider;
 	}
 	
 	public String toString() {
-	    return "transaction No: " + transId + 
-	           ", amount: " + amount +
-	           ", service name: " + serviceName +
-	           ", your email: " + userEmail;
-
+		return "Email: " + userEmail +
+	    		", Transaction No: " + transId + 
+	    		", Service name: " + serviceName +
+	    		", Service provider name: " + serviceProvider +
+	           ", Amount: " + amount;
 	    
 	}
 }

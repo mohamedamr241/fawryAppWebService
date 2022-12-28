@@ -45,12 +45,12 @@ public class serviceController{
 	static int counter = 0;
 	double disPrice;
 	
-	@RequestMapping(value="/user/services",method = RequestMethod.GET)
+	@RequestMapping(value="/services",method = RequestMethod.GET)
 	public ArrayList<String> services() {
 		return Services.displayServices();
 	}
 	
-	@RequestMapping(value="/user/services/{serviceName}",method = RequestMethod.GET)
+	@RequestMapping(value="/services/{serviceName}",method = RequestMethod.GET)
 	public ArrayList<String> search(@PathVariable("serviceName") String serviceName){
 		if(serviceName.equals("mobileRecharge")) {
 			Services mobile = new MobileService();
@@ -102,7 +102,6 @@ public class serviceController{
 		    	map.put("CCN",CCN);
 		    }
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		if(serviceName.equals("mobileRecharge")) {
@@ -229,7 +228,7 @@ public class serviceController{
 				landline.setPayMethod(payMethod);	
 				disPrice = landline.performPayMethod(price);
 				map.put("price after discount",Double.toString(disPrice));
-				map.put("payment status","payment with cash is done successfully");
+				map.put("payment status","payment with credit card is done successfully");
 				transactionCounter++;
 				counter++;
 				Transactions.addTransaction(counter, disPrice, serviceProvider,serviceName, UserEmail);
@@ -282,7 +281,7 @@ public class serviceController{
 				Internet.setPayMethod(payMethod);	
 				disPrice = Internet.performPayMethod(price);
 				map.put("price after discount",Double.toString(disPrice));
-				map.put("payment status","payment with cash is done successfully");
+				map.put("payment status","payment with credit card is done successfully");
 				transactionCounter++;
 				counter++;
 				Transactions.addTransaction(counter, disPrice, serviceProvider,serviceName, UserEmail);
@@ -334,7 +333,7 @@ public class serviceController{
 				donation.setPayMethod(payMethod);	
 				disPrice = donation.performPayMethod(price);
 				map.put("price after discount",Double.toString(disPrice));
-				map.put("payment status","payment with cash is done successfully");
+				map.put("payment status","payment with credit card is done successfully");
 				transactionCounter++;
 				counter++;
 				Transactions.addTransaction(counter, disPrice, serviceProvider,serviceName, UserEmail);

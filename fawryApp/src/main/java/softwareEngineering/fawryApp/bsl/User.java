@@ -40,6 +40,11 @@ public class User implements Observer{
 	
 	public String requestRefund(TransactionEntity t) 
 	{
+		for(TransactionEntity obj : admin.getrefundRequestList())
+		{
+			if(obj.transId == t.transId)
+				return "this refund request already exsist";
+		}
 		admin.setrefundRequest(t);
 		return "Your request refund is submited, it will be processed and you'll get notification";
 	}
