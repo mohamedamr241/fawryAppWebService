@@ -36,20 +36,32 @@ public class Admin implements Subject{
 		Notify(dis+"% discount is applied on "+ service);
 	}
 
-	public boolean processRefund(int transId)
+	public String processRefund(int transId)//??
 	{
+		int index = 0;
+		boolean notFound = false;
 		for(int i = 0; i < Transactions.transactions.size(); i++)
 		{
 			TransactionEntity t = Transactions.transactions.get(i);
 			if(t.transId == transId)
 			{
-				TransactionEntity rq = refundReqList.get(i);
+				for(TransactionEntity tt: refundReqList)
+				{
+					if(tt.transId == transId)
+					{
+						index = refundReqList.indexOf(tt);
+						break;
+					}
+				}
+	
+				TransactionEntity rq = refundReqList.get(index);
 				if(t.amount == rq.amount && t.serviceName.equals(rq.serviceName) && t.userEmail.equals(rq.userEmail))
-					return true;
+					return "Refund request with tansaction id " + transId + " is correct";
+				else notFound = true;
 			}
-			
 		}
-		return false;
+		if(notFound) return "Refund request with tansaction id " + transId + " is incorrect";
+		return "There's no transaction with id " + transId;
 	}
 	
 	
@@ -57,28 +69,36 @@ public class Admin implements Subject{
 	{
 		int index = 0;
 		String returnMesg = null;
+		for(TransactionEntity t: refundReqList)
+		{
+			if(transactionId == t.transId)
+			{
+				index = refundReqList.indexOf(t);
+				break;
+			}
+		}
+		TransactionEntity rq = refundReqList.get(index);
 		if(decision.equals("accept"))
 		{
-			for(TransactionEntity t: refundReqList)
-			{
-				if(transactionId == t.transId)
-				{
-					index = refundReqList.indexOf(t);
-					break;
-				}
-			}
 			Wallet userWallet = Wallet.getUserWallet(refundReqList.get(index).userEmail);
 			double balance = userWallet.getBalance();
-			userWallet.chargeViaCreditCard(refundReqList.get(index).amount);
-			NotifyRefund(refundReqList.get(index).userEmail,"your refund request is accepted and your wallet balance is updated from " + balance + " to " + userWallet.getBalance());
-			returnMesg =  "Refund request with Id " + transactionId + " is accepted and user's wallet balance is updated from " + balance + "$ to " + userWallet.getBalance() + '$';
+			userWallet.chargeViaCreditCard(rq.amount);
+			NotifyRefund(rq.userEmail,"your refund request (" + rq.transId + ", " + rq.serviceName + ", " + rq.amount + ") is accepted and your wallet balance is updated from " + balance + " $ to " + userWallet.getBalance() + " $");
+			returnMesg =  "Refund request with Id " + transactionId + " is accepted and user's wallet balance is updated from " + balance + " $ to " + userWallet.getBalance() + " $";
+			for(int i = 0; i < Transactions.transactions.size(); i++)
+			{
+				TransactionEntity t = Transactions.transactions.get(i);
+				if(t.transId == transactionId)
+				{
+					Transactions.transactions.remove(t);
+				}
+			}
 		}
 		else {
-			NotifyRefund(refundReqList.get(index).userEmail,"your refund request is rejected"); 
-			returnMesg = "Refund request with Id " + transactionId + "is rejected.";
+			NotifyRefund(rq.userEmail,"your refund request (" + rq.transId + ", " + rq.serviceName + ", " + rq.amount + ") is rejected"); 
+			returnMesg = "Refund request with Id " + transactionId + " is rejected.";
 		}
 		refundReqList.remove(index);
-		//remove from transactions
 		return returnMesg;
 	}
 
