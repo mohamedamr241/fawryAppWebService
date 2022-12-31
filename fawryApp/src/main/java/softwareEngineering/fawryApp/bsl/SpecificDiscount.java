@@ -23,17 +23,17 @@ public class SpecificDiscount extends Discount {
 	
 	
 	
-	public static boolean checkDiscount(String service)
+	public static int checkDiscount(String service)
 	{
-		for(String s : serviceDiscounts.keySet())
+		for(Map.Entry<String, Integer> set : serviceDiscounts.entrySet())
 		{
-			if(s.equals(service))
+			if(set.getKey().equals(service))
 			{
 				serviceTmp = service;
-				return true;
+				return set.getValue();
 			}
 		}
-		return false;
+		return 0;
 	}
 	
 	

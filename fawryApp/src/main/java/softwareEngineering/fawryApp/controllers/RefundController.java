@@ -43,7 +43,7 @@ public class RefundController{
 		return refundBsl.processRefund(transId);
 	}
 	
-	@GetMapping(value = "/admin/processRefund/{transId}/{decision}")//decision->accept, reject
+	@GetMapping(value = "/admin/processRefund/{transId}/{decision}")
 	public String accOrRej(@PathVariable("transId") int transId, @PathVariable("decision") String decision)
 	{
 		return refundBsl.accOrRej(decision, transId);
