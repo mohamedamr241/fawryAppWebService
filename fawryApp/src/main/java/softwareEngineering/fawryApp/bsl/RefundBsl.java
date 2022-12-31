@@ -34,7 +34,7 @@ public class RefundBsl{
 				TransactionEntity rq = refund.getrefundRequestList().get(index);
 				if(t.amount == rq.amount && t.serviceName.equals(rq.serviceName) && t.email.equals(rq.email))
 					return "Refund request with tansaction id " + transId + " is correct";
-				else notFound = true;
+				notFound = true;
 			}
 		}
 		if(notFound) return "Refund request with tansaction id " + transId + " is incorrect";
@@ -43,16 +43,20 @@ public class RefundBsl{
 	
 	public String requestRefund(TransactionEntity t) 
 	{
+		boolean found = true;
 		for(TransactionEntity obj : refund.getrefundRequestList())
 		{
 			if(obj.transId == t.transId)
-				return "this refund request already exsist";
+				return "Refund request with transactin id " + t.transId + " already exsist";
+			else found = false;	
 		}
+		if(!found)
+			return "There's no transaction with id " + t.transId;
 		refund.addRefundRequest(t);
 		return "Your request refund is submited, it will be processed and you'll get notification";
 	}
 	
-	public String accOrRej(String decision, int transactionId)//
+	public String accOrRej(String decision, int transactionId)
 	{
 	
 		int index = 0;
@@ -66,34 +70,29 @@ public class RefundBsl{
 			}
 		}
 		TransactionEntity rq = refund.getrefundRequestList().get(index);
-		if(decision.equals("accept"))
+		if(decision.equals("accept") || decision.equals("1"))
 		{
 			Wallet userWallet = Wallet.getUserWallet(refund.getrefundRequestList().get(index).email);
 			double balance = userWallet.getBalance();
 			userWallet.chargeViaCreditCard(rq.amount);
-			notifyRefund(rq.email,"your refund request (" + rq.transId + ", " + rq.serviceName + ", " + rq.amount + ") is accepted and your wallet balance is updated from " + balance + " $ to " + userWallet.getBalance() + " $");
+			Account acc = User.getAccByEmail(rq.email);
+			acc.notifications.add("your refund request whith transaction id " + transactionId  + " is accepted and your wallet balance is updated from " + balance + " $ to " + userWallet.getBalance() + " $");
 			returnMesg =  "Refund request with Id " + transactionId + " is accepted and user's wallet balance is updated from " + balance + " $ to " + userWallet.getBalance() + " $";
+			
 			for(int i = 0; i < Transactions.getTransactions().size(); i++)
 			{
 				TransactionEntity t = Transactions.getTransactions().get(i);
 				if(t.transId == transactionId)
-				{
 					Transactions.getTransactions().remove(t);
-				}
 			}
 		}
-		else {
-			notifyRefund(rq.email,"your refund request (" + rq.transId + ", " + rq.serviceName + ", " + rq.amount + ") is rejected"); 
+		else if(decision.equals("reject") || decision.equals("0")){
+			Account acc = User.getAccByEmail(rq.email);
+			acc.notifications.add("your refund request whith transaction id " + transactionId  + " is rejected");
 			returnMesg = "Refund request with Id " + transactionId + " is rejected.";
 		}
 		
 		refund.removeRefundRequest(index);
-		
 		return returnMesg;
-	}
-	
-	public void notifyRefund(String email,String message) {
-		Account acc = User.getAccByEmail(email);
-		acc.notifications.add(message);
 	}
 }
