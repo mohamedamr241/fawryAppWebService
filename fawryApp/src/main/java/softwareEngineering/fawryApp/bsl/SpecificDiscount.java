@@ -2,17 +2,30 @@ package softwareEngineering.fawryApp.bsl;
 import java.util.*;
 
 public class SpecificDiscount extends Discount {
-	public static Map<String, Integer> serviceDiscount = new HashMap<String, Integer>();
+	private static Map<String, Integer> serviceDiscounts = new HashMap<String, Integer>();//service-discountValue
 	Payment payment;
-	static String serviceTmp;
+	private static String serviceTmp;
+		
 	public SpecificDiscount(Payment payment)
 	{
 		this.payment = payment;
 	}
 	
-	public static boolean searchService(String service)
+	public void addDiscount(String serviceName, int dis)
 	{
-		for(String s : serviceDiscount.keySet())
+		serviceDiscounts.put(serviceName, dis);
+	}
+	
+	public Map<String, Integer> getDiscounts()
+	{
+		return serviceDiscounts;
+	}
+	
+	
+	
+	public static boolean checkDiscount(String service)
+	{
+		for(String s : serviceDiscounts.keySet())
 		{
 			if(s.equals(service))
 			{
@@ -25,7 +38,7 @@ public class SpecificDiscount extends Discount {
 	
 	
 	public double pay(double price) {
-		double discount = serviceDiscount.get(serviceTmp);
+		double discount = serviceDiscounts.get(serviceTmp);
 		return payment.pay(price) - (price *(discount/100));
 	}
 	
