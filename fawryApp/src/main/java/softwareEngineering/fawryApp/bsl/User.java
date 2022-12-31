@@ -8,7 +8,7 @@ import softwareEngineering.fawryApp.models.TransactionEntity;
 import softwareEngineering.fawryApp.models.Transactions;
 
 @Service
-public class User implements Observer{
+public class User{
 	private Admin admin = new Admin();
 	public ArrayList<String> notifications = new ArrayList<String>();
 	public String signIn(String email, String password)
@@ -33,7 +33,6 @@ public class User implements Observer{
 		Account.users.put(email,u);
 		Transactions.userTransactionNumber.put(email,0);
 		Account.userAccounts.put(email, password);
-		admin.subscribe(u);
 		Account.userWallet.put(email, new Wallet());
 		return "Account created successfully";
 	}
@@ -49,10 +48,6 @@ public class User implements Observer{
 		return "Your request refund is submited, it will be processed and you'll get notification";
 	}
 
-	@Override
-	public void update(String note) {
-		notifications.add(note);
-	}
 }
 
 
