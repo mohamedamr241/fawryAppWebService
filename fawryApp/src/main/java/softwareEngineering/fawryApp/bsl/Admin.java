@@ -10,9 +10,8 @@ import softwareEngineering.fawryApp.models.Account;
 import softwareEngineering.fawryApp.models.TransactionEntity;
 import softwareEngineering.fawryApp.models.Transactions;
 @Component
-public class Admin implements Subject{
+public class Admin{
 	private static ArrayList<TransactionEntity> refundReqList = new ArrayList<TransactionEntity>();
-	static ArrayList<Observer> systemUsers = new ArrayList<Observer>();
 	
 	public void setrefundRequest(TransactionEntity t) {
 		refundReqList.add(t);
@@ -33,7 +32,6 @@ public class Admin implements Subject{
 	public void addDiscount(String service, int dis)
 	{
 		SpecificDiscount.serviceDiscount.put(service,dis);
-		Notify(dis+"% discount is applied on "+ service);
 	}
 
 	public String processRefund(int transId)//??
@@ -55,7 +53,7 @@ public class Admin implements Subject{
 				}
 	
 				TransactionEntity rq = refundReqList.get(index);
-				if(t.amount == rq.amount && t.serviceName.equals(rq.serviceName) && t.userEmail.equals(rq.userEmail))
+				if(t.amount == rq.amount && t.serviceName.equals(rq.serviceName) && t.email.equals(rq.email))
 					return "Refund request with tansaction id " + transId + " is correct";
 				else notFound = true;
 			}
@@ -80,10 +78,10 @@ public class Admin implements Subject{
 		TransactionEntity rq = refundReqList.get(index);
 		if(decision.equals("accept"))
 		{
-			Wallet userWallet = Wallet.getUserWallet(refundReqList.get(index).userEmail);
+			Wallet userWallet = Wallet.getUserWallet(refundReqList.get(index).email);
 			double balance = userWallet.getBalance();
 			userWallet.chargeViaCreditCard(rq.amount);
-			NotifyRefund(rq.userEmail,"your refund request (" + rq.transId + ", " + rq.serviceName + ", " + rq.amount + ") is accepted and your wallet balance is updated from " + balance + " $ to " + userWallet.getBalance() + " $");
+			NotifyRefund(rq.email,"your refund request (" + rq.transId + ", " + rq.serviceName + ", " + rq.amount + ") is accepted and your wallet balance is updated from " + balance + " $ to " + userWallet.getBalance() + " $");
 			returnMesg =  "Refund request with Id " + transactionId + " is accepted and user's wallet balance is updated from " + balance + " $ to " + userWallet.getBalance() + " $";
 			for(int i = 0; i < Transactions.transactions.size(); i++)
 			{
@@ -95,7 +93,7 @@ public class Admin implements Subject{
 			}
 		}
 		else {
-			NotifyRefund(rq.userEmail,"your refund request (" + rq.transId + ", " + rq.serviceName + ", " + rq.amount + ") is rejected"); 
+			NotifyRefund(rq.email,"your refund request (" + rq.transId + ", " + rq.serviceName + ", " + rq.amount + ") is rejected"); 
 			returnMesg = "Refund request with Id " + transactionId + " is rejected.";
 		}
 		refundReqList.remove(index);
@@ -112,17 +110,6 @@ public class Admin implements Subject{
 			}
 		}
 	}
-	@Override
-	public void Notify(String note) {
-		for(int i=0;i<systemUsers.size();i++) {
-			systemUsers.get(i).update(note);
-		}
-		
-	}
 
-	@Override
-	public void subscribe(Observer ob) {
-		systemUsers.add(ob);
-	}
 	
 }
