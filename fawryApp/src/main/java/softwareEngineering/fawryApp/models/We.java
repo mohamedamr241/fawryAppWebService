@@ -8,11 +8,8 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @Component
 public class We extends ServiceProviders{
 	public  int mobileNumber;
-	public  int amount;
 	public int getMobileNumber() {
 		return mobileNumber;
 	}
-	public int getAmount() {
-		return amount;
-	}
+
 }

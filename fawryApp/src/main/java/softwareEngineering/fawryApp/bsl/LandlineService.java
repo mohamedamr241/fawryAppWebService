@@ -1,9 +1,13 @@
 package softwareEngineering.fawryApp.bsl;
 
+import org.springframework.stereotype.Service;
+
 import softwareEngineering.fawryApp.models.MonthlyReceipt;
 import softwareEngineering.fawryApp.models.QuarterReceipt;
 import softwareEngineering.fawryApp.models.ServiceProviders;
 
+
+//@Service
 public class LandlineService extends Services{
 
 	public LandlineService()
