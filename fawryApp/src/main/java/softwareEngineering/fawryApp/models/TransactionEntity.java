@@ -5,6 +5,7 @@ public class TransactionEntity {
 	public double amount;
 	public String serviceName;
 	public String email;
+<<<<<<< Updated upstream
 	public String serviceProvider,payMethod ;
 	public TransactionEntity(int transId, double amount,String serviceProvider, String serviceName, String email , String payMethod) {
 		this.transId = transId;
@@ -13,6 +14,16 @@ public class TransactionEntity {
 		this.email = email;
 		this.serviceProvider = serviceProvider;
 		this.payMethod = payMethod ;
+=======
+	public String serviceProvider, payMethod;
+	public TransactionEntity(int transId, double amount,String serviceProvider, String serviceName, String userEmail, String payMethod) {
+		this.transId = transId;
+		this.amount = amount;
+		this.serviceName = serviceName;
+		this.email = userEmail;
+		this.serviceProvider = serviceProvider;
+		this.payMethod = payMethod;
+>>>>>>> Stashed changes
 	}
 	
 	public String toString() {

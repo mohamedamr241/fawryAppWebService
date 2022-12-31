@@ -1,14 +1,14 @@
 package softwareEngineering.fawryApp.bsl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
 import softwareEngineering.fawryApp.models.ServiceProviders;
+
 
 public abstract class Services {
 	public Handler providerHandler;
 	Payment payMethod;
-	private static ArrayList<String> services = new ArrayList<String>(Arrays.asList("MobileRecharge","Landline","InternetPayment","Donations"));
+	private static ArrayList<String> services = new ArrayList<String>(Arrays.asList("mobileRecharge","Landline","InternetPayment","Donations"));
 	protected ArrayList<String> serviceProviders = new ArrayList<String>();
 	protected ArrayList<String> paymentMethods = new ArrayList<String>();
 
@@ -47,7 +47,6 @@ public abstract class Services {
 	public double performPayMethod(double price)
 	{
 		double disPrice = payMethod.pay(price);
-		System.out.println("price after discount: "+disPrice);
 		return disPrice;
 	}
 	

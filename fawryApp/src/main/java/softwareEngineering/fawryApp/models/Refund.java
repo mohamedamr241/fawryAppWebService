@@ -9,7 +9,11 @@ public class Refund{
 	
 	public void addRefundRequest(TransactionEntity rq)
 	{
-		refundedTransactions.add(rq);
+		for(TransactionEntity t : Transactions.getTransactions())
+		{
+			if(t.transId == rq.transId)
+				refundedTransactions.add(t);	
+		}
 		refundReqList.add(rq);
 	}
 	
