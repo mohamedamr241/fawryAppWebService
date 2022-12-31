@@ -1,43 +1,43 @@
 package softwareEngineering.fawryApp.controllers;
 
-import java.io.IOException;
-import java.util.stream.Collectors;
+import java.util.*;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.json.JsonMapper;
-
-import jakarta.servlet.http.HttpServletRequest;
 import softwareEngineering.fawryApp.bsl.Wallet;
+import softwareEngineering.fawryApp.models.Account;
+import softwareEngineering.fawryApp.models.TransactionEntity;
+import softwareEngineering.fawryApp.models.Transactions;
 
 @RestController
-public class walletController{
+public class WalletController{
 	
-	@RequestMapping(value="/user/wallet/charge/{chargeAmount}",method = RequestMethod.POST)
-	public String chargeWallet(@PathVariable("chargeAmount") double chargeAmount,HttpServletRequest request) {
-		String creditCardNum="";
-		String CCN="" ;
-		JsonNode json;
-		String body;
-		String UserEmail="";
-		try {
-			body = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
-			ObjectMapper mapper = new JsonMapper();
-		    json = mapper.readTree(body);
-		    UserEmail=json.get("email").asText();
-		    creditCardNum=json.get("creditCardNum").asText();
-		    CCN=json.get("CCN").asText();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		Wallet userWallet = Wallet.getUserWallet(UserEmail);
-		String res=userWallet.chargeViaCreditCard(chargeAmount);
-		return res;
+	@PostMapping(value="/user/wallet/charge/{chargeAmount}")
+	public String chargeWallet(@PathVariable("chargeAmount") double chargeAmount, @RequestBody Account account) {
+
+		Wallet userWallet = Wallet.getUserWallet(account.email);
+		return userWallet.chargeViaCreditCard(chargeAmount);
+	}
+	
+	@GetMapping(value="/admin/WalletTransactions")
+	public ArrayList<TransactionEntity> WalletTransactions() {
+		return Transactions.getWalletTransactions();
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
