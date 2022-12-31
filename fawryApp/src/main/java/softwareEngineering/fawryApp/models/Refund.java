@@ -4,17 +4,12 @@ import java.util.ArrayList;
 
 public class Refund{
 	private static ArrayList<TransactionEntity> refundReqList = new ArrayList<TransactionEntity>();
+	private static ArrayList<TransactionEntity> refundedTransactions = new ArrayList<TransactionEntity>();
 	
-	public static void setrefundRequest(TransactionEntity t) {
-		refundReqList.add(t);
-	}
-
-	public static ArrayList<TransactionEntity> getrefundRequestList() {
-		return refundReqList;
-	}	
 	
 	public void addRefundRequest(TransactionEntity rq)
 	{
+		refundedTransactions.add(rq);
 		refundReqList.add(rq);
 	}
 	
@@ -22,5 +17,14 @@ public class Refund{
 	{
 		refundReqList.remove(ind);
 	}
+	
+	public ArrayList<TransactionEntity> getrefundRequestList() {
+		return refundReqList;
+	}	
+	
+	public ArrayList<TransactionEntity> getrefundedTransactions() {
+		return refundedTransactions;
+	}	
+
 
 }
