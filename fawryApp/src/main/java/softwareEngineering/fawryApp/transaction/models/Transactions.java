@@ -1,0 +1,28 @@
+package softwareEngineering.fawryApp.transaction.models;
+
+import java.util.*;
+
+public class Transactions {
+	private static ArrayList<TransactionEntity> transactions = new ArrayList<TransactionEntity>();
+	public static void addTransaction(TransactionEntity obj)
+	{
+		transactions.add(obj);
+	}
+	
+	public static ArrayList<TransactionEntity> getTransactions()
+	{
+		return transactions;
+	}
+	
+	public static ArrayList<TransactionEntity> getWalletTransactions()
+	{
+		ArrayList<TransactionEntity> walletTrans = new ArrayList<TransactionEntity>();
+		for(TransactionEntity t : transactions)
+		{
+			if(t.getPayMethod().equals("Wallet"))
+				walletTrans.add(t);
+		}
+		return walletTrans;
+	}
+
+}
