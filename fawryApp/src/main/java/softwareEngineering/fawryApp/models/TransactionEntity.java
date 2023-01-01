@@ -5,7 +5,7 @@ public class TransactionEntity {
 	public double amount;
 	public String serviceName;
 	public String email;
-	public String serviceProvider, payMethod;
+	public String serviceProvider, payMethod,timeStamp;
 	public TransactionEntity(int transId, double amount,String serviceProvider, String serviceName, String userEmail, String payMethod) {
 		this.transId = transId;
 		this.amount = amount;

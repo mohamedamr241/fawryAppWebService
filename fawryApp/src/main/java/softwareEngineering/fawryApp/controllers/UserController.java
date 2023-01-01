@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import softwareEngineering.fawryApp.models.User;
+import softwareEngineering.fawryApp.bsl.TimeStampBsl;
 import softwareEngineering.fawryApp.bsl.UserBsl;
 import softwareEngineering.fawryApp.models.Account;
 
@@ -29,16 +30,24 @@ public class UserController{
 	@RequestMapping(value="/user/signIn",method = RequestMethod.POST)
 	public String signIn(@RequestBody Account acc) {
 		return userbsl.signIn(acc);
+		
 	}
-	
+	@RequestMapping(value="/user/signOut",method = RequestMethod.POST)
+	public String signOut(@RequestBody Account acc) {
+		return userbsl.signOut(acc.timeStamp);
+		
+	}
 	@RequestMapping(value="/user/notifications/{email}",method = RequestMethod.GET)
-	public ArrayList<String> Notifications(@PathVariable("email") String email){
-		for(Account acc : User.getAccounts())
-		{
-			if(acc.email.equals(email))
-				return acc.notifications;
+	public ArrayList<String> Notifications(@RequestBody Account account){
+		if(TimeStampBsl.checkValidation(account.timeStamp,account.email)) {
+			for(Account acc : User.getAccounts())
+			{
+				if(acc.email.equals(account.email))
+					return acc.notifications;
+			}
+			return new ArrayList<String>(Arrays.asList("Account doesn't exist"));			
 		}
-		return new ArrayList<String>(Arrays.asList("Account doesn't exist"));
+		return new ArrayList<String>(Arrays.asList("you must signIn first"));
 		}
 }
 

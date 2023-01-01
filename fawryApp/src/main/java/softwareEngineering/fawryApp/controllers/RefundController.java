@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import softwareEngineering.fawryApp.bsl.RefundBsl;
+import softwareEngineering.fawryApp.bsl.TimeStampBsl;
 import softwareEngineering.fawryApp.models.TransactionEntity;
 
 
@@ -24,7 +25,10 @@ public class RefundController{
 	@PostMapping(value = "/user/requestRefund")
 	public String requestRefund(@RequestBody TransactionEntity obj) 
 	{
-		return refundBsl.requestRefund(obj);
+		if(TimeStampBsl.checkValidation(obj.timeStamp,obj.email)) {
+			return refundBsl.requestRefund(obj);			
+		}
+		return "you must signIn first";
 	}
 	
 	@GetMapping(value = "/admin/refundRequests")

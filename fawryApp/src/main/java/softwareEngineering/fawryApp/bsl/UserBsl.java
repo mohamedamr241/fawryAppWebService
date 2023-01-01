@@ -15,10 +15,18 @@ public class UserBsl{
 		
 		for (Account a : User.getAccounts())
 		{
-			if(a.email.equals(acc.email) && a.password.equals(acc.password))
-				return "logged in successfully";
+			if(a.email.equals(acc.email) && a.password.equals(acc.password)) {
+				if(a.timeStamp.equals("0")) {
+					String timeStamp=TimeStampBsl.timeStampCreation();
+					a.timeStamp=timeStamp;
+					return "your timeStamp is "+timeStamp;					
+				}
+				else {
+					return "you already signedIn";
+				}
+			}
 		}
-		return "Email or password incorrent";
+		return "Please enter correct username and password";
 	}
 	
 	public String signUp(Account acc)
@@ -33,7 +41,15 @@ public class UserBsl{
 		user.addAccount(acc);
 		return "Account created successfully";
 	}
-	
+	public String signOut(String timeStamp) {
+		for(Account acc: User.getAccounts()) {
+			if(acc.timeStamp.equals(timeStamp)) {
+				acc.timeStamp="0";
+				return "logged out successfully";
+			}
+		}
+		return "logging out failed";
+	}
 	public static void notify(String message)
 	{
 		for(Account acc : User.getAccounts())

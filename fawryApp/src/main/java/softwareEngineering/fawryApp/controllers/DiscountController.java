@@ -10,7 +10,7 @@ import softwareEngineering.fawryApp.bsl.DiscountBsl;
 @RestController
 public class DiscountController{
 	
-	DiscountBsl discountbsl;
+	private DiscountBsl discountbsl;
 	
 	public DiscountController(DiscountBsl discountbsl)
 	{

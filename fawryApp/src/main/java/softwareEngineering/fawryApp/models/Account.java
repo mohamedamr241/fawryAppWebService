@@ -8,7 +8,7 @@ public class Account{
 	public Wallet wallet;
 	public boolean isFirstTrans = true;
 	public ArrayList<String> notifications = new ArrayList<String>();
-	
+	public String timeStamp="0";
 	//setters and getters
 	
 }
