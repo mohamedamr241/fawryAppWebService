@@ -2,8 +2,6 @@ package softwareEngineering.fawryApp.bsl;
 
 import java.util.*;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import softwareEngineering.fawryApp.models.ServiceProviders;
@@ -15,50 +13,34 @@ public class TransactionBsl{
 	ServiceProviders servprovider;
 	Services service;
 	
-	public ResponseEntity<Map<String, String>> createTransaction(String serviceName, String serviceProvider, String paymentMethod, PaymentBsl payment) {
+	public Map<String, String> createTransaction(String serviceName, String serviceProvider, String paymentMethod, PaymentBsl payment) {
 		
-		Map<String, String> transactionDetails = new HashMap<String, String>();
-		if(Services.displayServices().contains(serviceName) || serviceName.equals("1") || serviceName.equals("2") || serviceName.equals("3") || serviceName.equals("4"))
+		String serveName = Services.getServiceNameById(serviceName);
+		if(Services.displayServices().contains(serveName))
 		{
-			if(serviceName.equals("mobileRecharge") || serviceName.equals("1")) {
+			if(serveName.equals("MobileRecharge")) 
 				service = new MobileService();
-				if(service.displayProviders().contains(serviceProvider))
-				{
-					servprovider = service.orderServiceProvider(serviceProvider);
-					transactionDetails = payment.pay(service, "mobileRecharge", serviceProvider, paymentMethod);
-				}
-			}
-			else if(serviceName.equals("Landline")|| serviceName.equals("2")){
+				
+			else if(serveName.equals("Landline"))
 				service = new LandlineService();
-				if(service.displayProviders().contains(serviceProvider))
-				{
-					servprovider = service.orderServiceProvider(serviceName);
-					transactionDetails = payment.pay(service, "Landline", serviceProvider, paymentMethod);
-				}
-
-			}
-			else if(serviceName.equals("InternetPayment")|| serviceName.equals("3")){
+			
+			else if(serveName.equals("InternetPayment"))
 				service = new InternetService();
-				if(service.displayProviders().contains(serviceProvider))
-				{
-					servprovider = service.orderServiceProvider(serviceName);
-					transactionDetails = payment.pay(service, "InternetPayment", serviceProvider, paymentMethod);
-				}
 
-			}
-			else if(serviceName.equals("Donations")|| serviceName.equals("4"))
-			{
+			else if(serveName.equals("Donations"))
 				service = new DonationService();
-				if(service.displayProviders().contains(serviceProvider))
-				{
-					servprovider = service.orderServiceProvider(serviceName);
-					transactionDetails = payment.pay(service, "Donations", serviceProvider, paymentMethod);
-				}
+			
+			if(service.displayProviders().contains(serviceProvider))
+			{
+				servprovider = service.orderServiceProvider(serviceProvider);
+				if(!service.displayPayMethods().contains(paymentMethod))
+					return new HashMap<String, String>(Map.of("Error","Payment Method Not Found"));
 			}
-			return ResponseEntity.ok(transactionDetails);
-				}
-		transactionDetails.put("error", "Service not found");
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(transactionDetails);
-
+			else 
+				return new HashMap<String, String>(Map.of("Error","Provider Not Found"));
+			
+			return payment.makePurchase(service, serveName, serviceProvider, paymentMethod);
+		}
+		return new HashMap<String, String>(Map.of("Error","Service Not Found"));
 	}
 }

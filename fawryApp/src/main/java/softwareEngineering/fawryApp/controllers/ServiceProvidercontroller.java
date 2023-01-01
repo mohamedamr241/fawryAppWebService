@@ -1,7 +1,10 @@
 package softwareEngineering.fawryApp.controllers;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,29 +17,31 @@ import softwareEngineering.fawryApp.bsl.Services;
 
 
 @RestController
-public class ServiceProvidercontroller {//response
-	
-	@GetMapping(value="/services/{serviceName}/serviceProviders")
-	public ArrayList<String> serviceProviders(@PathVariable("serviceName") String serviceName)
-	{
-		Services s = null;
-		if(serviceName.equals("mobileRecharge") || serviceName.equals("1") ) {
+public class ServiceProvidercontroller {
+
+		
+
+		@GetMapping(value="/services/{serviceName}/serviceProviders")
+		public ResponseEntity<ArrayList<String>> serviceProviders(@PathVariable("serviceName") String serviceName) {
 			
-			s = new MobileService();
-			return s.displayProviders();
-		}
-		else if(serviceName.equals("Landline") || serviceName.equals("2")) {
-			s = new LandlineService();
-			return s.displayProviders();
-		}
-		else if(serviceName.equals("InternetPayment") || serviceName.equals("3")) {
-			s = new InternetService();
-			return s.displayProviders();
-		}
-		else if(serviceName.equals("Donations") || serviceName.equals("4")) {
-			s = new DonationService();
-			return s.displayProviders();
-		}
-		return null;
-	}
+			String serveName = Services.getServiceNameById(serviceName);
+			if(Services.displayServices().contains(serveName))
+			{
+				Services s = null;
+				if(serveName.equals("MobileRecharge")) 
+					s = new MobileService();
+				
+				else if(serveName.equals("Landline")) 
+					s = new LandlineService();
+				
+				else if(serveName.equals("InternetPayment")) 
+					s = new InternetService();
+				
+				else if(serveName.equals("Donations"))
+					s = new DonationService();	
+				return ResponseEntity.ok(s.displayProviders());
+			}
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ArrayList<String>(Arrays.asList("Error", "Provider Not Found")));
+	     }
+		
 }

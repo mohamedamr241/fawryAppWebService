@@ -17,14 +17,13 @@ public class RefundBsl{
 	{
 		int index = 0;
 		boolean notFound = false;
-		for(int i = 0; i < Transactions.getTransactions().size(); i++)
+		for(TransactionEntity t : Transactions.getTransactions())
 		{
-			TransactionEntity t = Transactions.getTransactions().get(i);
-			if(t.transId == transId)
+			if(t.getTransId() == transId)
 			{
 				for(TransactionEntity tt: refund.getrefundRequestList())
 				{
-					if(tt.transId == transId)
+					if(tt.getTransId() == transId)
 					{
 						index = refund.getrefundRequestList().indexOf(tt);
 						break;
@@ -32,10 +31,10 @@ public class RefundBsl{
 				}
 	
 				TransactionEntity rq = refund.getrefundRequestList().get(index);
-				if(t.amount == rq.amount && t.serviceName.equals(rq.serviceName) && t.email.equals(rq.email))
+				if(t.getAmount() == rq.getAmount() && t.getServiceName().equals(rq.getServiceName()) && t.getEmail().equals(rq.getEmail()))
 					return "Refund request with tansaction id " + transId + " is correct";
 				notFound = true;
-			}
+			}	
 		}
 		if(notFound) return "Refund request with tansaction id " + transId + " is incorrect";
 		return "There's no transaction with id " + transId;
@@ -46,12 +45,12 @@ public class RefundBsl{
 		boolean found = true;
 		for(TransactionEntity obj : refund.getrefundRequestList())
 		{
-			if(obj.transId == t.transId)
-				return "Refund request with transactin id " + t.transId + " already exsist";
+			if(obj.getTransId() == t.getTransId())
+				return "Refund request with transactin id " + t.getTransId() + " already exsist";
 			else found = false;	
 		}
 		if(!found)
-			return "There's no transaction with id " + t.transId;
+			return "There's no transaction with id " + t.getTransId();
 		refund.addRefundRequest(t);
 		return "Your request refund is submited, it will be processed and you'll get notification";
 	}
@@ -63,7 +62,7 @@ public class RefundBsl{
 		String returnMesg = null;
 		for(TransactionEntity t: refund.getrefundRequestList())
 		{
-			if(transactionId == t.transId)
+			if(transactionId == t.getTransId())
 			{
 				index = refund.getrefundRequestList().indexOf(t);
 				break;
@@ -72,23 +71,22 @@ public class RefundBsl{
 		TransactionEntity rq = refund.getrefundRequestList().get(index);
 		if(decision.equals("accept") || decision.equals("1"))
 		{
-			Wallet userWallet = Wallet.getUserWallet(refund.getrefundRequestList().get(index).email);
-			double balance = userWallet.getBalance();
-			userWallet.chargeViaCreditCard(rq.amount);
-			Account acc = User.getAccByEmail(rq.email);
-			acc.notifications.add("your refund request whith transaction id " + transactionId  + " is accepted and your wallet balance is updated from " + balance + " $ to " + userWallet.getBalance() + " $");
-			returnMesg =  "Refund request with Id " + transactionId + " is accepted and user's wallet balance is updated from " + balance + " $ to " + userWallet.getBalance() + " $";
+			Wallet userWallet = Wallet.getUserWallet(refund.getrefundRequestList().get(index).getEmail());
+			userWallet.chargeViaCreditCard(rq.getAmount());
+			Account acc = User.getAccByEmail(rq.getEmail());
+			acc.addNotification("your refund request with transaction id " + transactionId  + " is accepted and your wallet balance is updated from " + userWallet.getPreviousBalance() + " $ to " + userWallet.getBalance() + " $");
+			returnMesg =  "Refund request with Id " + transactionId + " is accepted and user's wallet balance is updated from " + userWallet.getPreviousBalance() + " $ to " + userWallet.getBalance() + " $";
 			
 			for(int i = 0; i < Transactions.getTransactions().size(); i++)
 			{
 				TransactionEntity t = Transactions.getTransactions().get(i);
-				if(t.transId == transactionId)
+				if(t.getTransId() == transactionId)
 					Transactions.getTransactions().remove(t);
 			}
 		}
 		else if(decision.equals("reject") || decision.equals("0")){
-			Account acc = User.getAccByEmail(rq.email);
-			acc.notifications.add("your refund request whith transaction id " + transactionId  + " is rejected");
+			Account acc = User.getAccByEmail(rq.getEmail());
+			acc.addNotification("your refund request with transaction id " + transactionId  + " is rejected");
 			returnMesg = "Refund request with Id " + transactionId + " is rejected.";
 		}
 		

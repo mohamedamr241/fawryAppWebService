@@ -1,7 +1,8 @@
 package softwareEngineering.fawryApp.controllers;
 import java.util.*;
 
-
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,23 +23,27 @@ public class UserController{
 	}
 	
 	@RequestMapping(value="/user/signUp",method = RequestMethod.POST)
-	public String signUp(@RequestBody Account acc) {
-		return userbsl.signUp(acc);
+	public ResponseEntity<String> signUp(@RequestBody Account acc) {
+		if(userbsl.signUp(acc)) 
+			return ResponseEntity.status(HttpStatus.CREATED).body("Account created successfully");
+		return ResponseEntity.ok("Email or username already exists");
 	}
 	
 	@RequestMapping(value="/user/signIn",method = RequestMethod.POST)
-	public String signIn(@RequestBody Account acc) {
-		return userbsl.signIn(acc);
+	public ResponseEntity<String> signIn(@RequestBody Account acc) {
+		if(userbsl.signIn(acc))
+			return ResponseEntity.ok("logged in successfully");
+		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Email or password is invalid");
 	}
 	
+	
 	@RequestMapping(value="/user/notifications/{email}",method = RequestMethod.GET)
-	public ArrayList<String> Notifications(@PathVariable("email") String email){
-		for(Account acc : User.getAccounts())
-		{
-			if(acc.email.equals(email))
-				return acc.notifications;
-		}
-		return new ArrayList<String>(Arrays.asList("Account doesn't exist"));
+	public ResponseEntity<ArrayList<String>> Notifications(@PathVariable("email") String email){
+		Account acc = User.getAccByEmail(email);
+		if(acc == null)
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ArrayList<String>(Arrays.asList("Account Doesn't Exist")));
+		if(acc.getNotifications().size() != 0) return ResponseEntity.ok(acc.getNotifications());
+		else return ResponseEntity.noContent().build();		  
 		}
 }
 

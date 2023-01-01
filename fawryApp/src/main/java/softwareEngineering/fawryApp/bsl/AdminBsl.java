@@ -9,10 +9,10 @@ import softwareEngineering.fawryApp.models.Admin;
 public class AdminBsl{
 
 	private Admin admin = new Admin();
-	public String signIn(Admin ad)
+	public  boolean signIn(Admin ad)
 	{
-		if(ad.email.equals(admin.email) && ad.password.equals(admin.password))
-			return "logged in successfully";
-		return "Email or password incorrent";
+		if(ad.getAdminEmail().equals(admin.getAdminEmail()) && ad.getAdminPass().equals(admin.getAdminPass()))
+			return true;
+		return false;
 	}
 }

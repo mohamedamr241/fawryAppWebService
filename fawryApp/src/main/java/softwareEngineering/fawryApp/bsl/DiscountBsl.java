@@ -17,14 +17,15 @@ public class DiscountBsl{
 		return disc;
 	}
 	
-	public String addDiscount(String serviceName, int discount) {
+	public boolean addDiscount(String serviceName, int discount) {
 		
-		if(Services.displayServices().contains(serviceName))
+		String serveName = Services.getServiceNameById(serviceName);
+		if(Services.displayServices().contains(serveName))
 		{
-			specificDis.addDiscount(serviceName, discount);
-			UserBsl.notify(serviceName + " has discount " + discount + " %");
-			return "Discount Added Successfully";
+			specificDis.addDiscount(serveName, discount);
+			UserBsl.notify(serveName + " has discount " + discount + " %");
+			return true;
 		}
-		return "This service is not availabe";
+		return false;
 	}
 }

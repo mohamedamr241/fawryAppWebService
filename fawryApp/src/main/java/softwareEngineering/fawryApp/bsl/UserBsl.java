@@ -10,35 +10,34 @@ public class UserBsl{
 	
 	public User user = new User();
 	
-	public String signIn(Account acc)
+	public boolean signIn(Account acc)
 	{
-		
 		for (Account a : User.getAccounts())
 		{
-			if(a.email.equals(acc.email) && a.password.equals(acc.password))
-				return "logged in successfully";
+			if(a.getEmail().equals(acc.getEmail()) && a.getPassword().equals(acc.getPassword()))
+				return true;
 		}
-		return "Email or password incorrent";
+		return false;
 	}
 	
-	public String signUp(Account acc)
+	public boolean signUp(Account acc)
 	{
-		
 		for (Account a : User.getAccounts())
 		{
-			if(a.username.equals(acc.username) || a.email.equals(acc.email))
-				return "Email already exists";
+			if(a.getUsername().equals(acc.getUsername()) || a.getEmail().equals(acc.getEmail()))
+				return false;
 		}
-		acc.wallet = new Wallet();
+		
+		acc.createWallet();
 		user.addAccount(acc);
-		return "Account created successfully";
+		return true;
 	}
 	
 	public static void notify(String message)
 	{
 		for(Account acc : User.getAccounts())
 		{
-			acc.notifications.add(message);
+			acc.addNotification(message);
 		}
 	}
 

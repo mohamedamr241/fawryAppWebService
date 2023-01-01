@@ -1,8 +1,8 @@
 package softwareEngineering.fawryApp.controllers;
 
-import java.util.ArrayList;
-import java.util.Map;
+import java.util.*;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,11 +27,15 @@ public class TransactionController{
 	
 	@PostMapping(value="/services/{serviceName}/{serviceProvider}/{paymentMethod}")
 	public ResponseEntity<Map<String, String>> createTransaction(@PathVariable("serviceName") String serviceName,@PathVariable("serviceProvider") String serviceProvider, @PathVariable("paymentMethod") String paymentMethod, @RequestBody PaymentBsl payment) {
-			return transbsl.createTransaction(serviceName, serviceProvider, paymentMethod, payment);
+			Map<String, String> details = transbsl.createTransaction(serviceName, serviceProvider, paymentMethod, payment);
+			if(details.size() == 1)
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(details);
+			return ResponseEntity.ok(details);
+
 		}
 	
 	@GetMapping(value="/admin/PaymentTransactions")
-	public ArrayList<TransactionEntity> paymentTransactions() {
-		return Transactions.getTransactions();
+	public ResponseEntity<ArrayList<TransactionEntity>> paymentTransactions() {
+		return ResponseEntity.ok(Transactions.getTransactions());
 	}
 }
