@@ -18,7 +18,7 @@ public class User{
 	{
 		for(Account acc : accounts)
 		{
-			if(acc.email.equals(email))
+			if(acc.getEmail().equals(email))
 				return acc;
 		}
 		return null;

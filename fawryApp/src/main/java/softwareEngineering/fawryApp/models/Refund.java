@@ -11,10 +11,13 @@ public class Refund{
 	{
 		for(TransactionEntity t : Transactions.getTransactions())
 		{
-			if(t.transId == rq.transId)
+			if(t.getTransId() == rq.getTransId())
+			{
 				refundedTransactions.add(t);	
+				refundReqList.add(rq);	
+				break;
+			}
 		}
-		refundReqList.add(rq);
 	}
 	
 	public void removeRefundRequest(int ind)

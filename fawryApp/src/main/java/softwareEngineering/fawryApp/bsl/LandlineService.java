@@ -1,19 +1,17 @@
 package softwareEngineering.fawryApp.bsl;
 
-import org.springframework.stereotype.Service;
-
 import softwareEngineering.fawryApp.models.MonthlyReceipt;
 import softwareEngineering.fawryApp.models.QuarterReceipt;
 import softwareEngineering.fawryApp.models.ServiceProviders;
 
 
-//@Service
 public class LandlineService extends Services{
 
 	public LandlineService()
 	{
 		super();
 	}
+	
 	@Override
 	public ServiceProviders createServiceProvider(String n) {
 		ServiceProviders sp = null;
@@ -35,18 +33,5 @@ public class LandlineService extends Services{
 		serviceProviders.add("MonthlyReceipt");
 		serviceProviders.add("QuarterReceipt");		
 	}
-
-//	@Override
-//	public void displayPaymentForm() {
-//		// TODO Auto-generated method stub
-//		
-//	}
-
-
-
-
-	
-	
-
 
 }

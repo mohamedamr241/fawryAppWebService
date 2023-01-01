@@ -19,7 +19,7 @@ public class Transactions {
 		ArrayList<TransactionEntity> walletTrans = new ArrayList<TransactionEntity>();
 		for(TransactionEntity t : transactions)
 		{
-			if(t.payMethod.equals("wallet"))
+			if(t.getPayMethod().equals("Wallet"))
 				walletTrans.add(t);
 		}
 		return walletTrans;

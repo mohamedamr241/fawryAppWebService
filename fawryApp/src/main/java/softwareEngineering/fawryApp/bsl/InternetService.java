@@ -1,6 +1,5 @@
 package softwareEngineering.fawryApp.bsl;
 
-import org.springframework.stereotype.Service;
 
 import softwareEngineering.fawryApp.models.Etisalat;
 import softwareEngineering.fawryApp.models.Orange;
@@ -8,7 +7,6 @@ import softwareEngineering.fawryApp.models.ServiceProviders;
 import softwareEngineering.fawryApp.models.Vodafone;
 import softwareEngineering.fawryApp.models.We;
 
-//@Service
 public class InternetService extends Services{
 
 	

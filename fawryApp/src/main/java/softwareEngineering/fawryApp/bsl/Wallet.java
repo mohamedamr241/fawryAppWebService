@@ -13,10 +13,14 @@ public class Wallet implements Payment{
 	
 	public String chargeViaCreditCard(double balance)
 	{
-		String ret = "Your wallet balance is updated from " + previousBalance;
-		previousBalance = balance;
+		previousBalance = this.balance;
 		this.balance += balance;
-		return ret + " $ to " + this.balance + " $ successfully.";
+		return "Your wallet balance is updated from " + previousBalance + " $ to " + this.balance + " $ successfully";
+	}
+	
+	public double getPreviousBalance()
+	{
+		return previousBalance;
 	}
 	
 	public double getBalance()
@@ -26,12 +30,8 @@ public class Wallet implements Payment{
 
 	
 	public static Wallet getUserWallet(String email) {
-		for (Account ac : User.getAccounts())
-		{
-			if(ac.email.equals(email))
-				return ac.wallet;
-		}
-		return null;
+		Account acc = User.getAccByEmail(email);
+		return (acc == null)? null : acc.getWallet();
 	}
 	
 }
