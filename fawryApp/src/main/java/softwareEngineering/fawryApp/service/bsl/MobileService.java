@@ -28,7 +28,6 @@ public class MobileService extends Services{
 	protected void setPayMethods()
 	{
 		paymentMethods.add("CreditCard");
-		paymentMethods.add("Cash");
 		paymentMethods.add("Wallet");
 	}
 	

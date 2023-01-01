@@ -21,14 +21,14 @@ public class DiscountBsl {
 		return disc;
 	}
 	
-	public String addDiscount(String serviceName, int discount) {
+	public boolean addDiscount(String serviceName, int discount) {
 		
 		if(Services.displayServices().contains(serviceName))
 		{
 			Discounts.addDiscount(serviceName, discount);
 			UserBsl.notify(serviceName + " has discount " + discount + " %");
-			return "Discount Added Successfully";
+			return true;
 		}
-		return "This service is not availabe";
+		return false;
 	}
 }

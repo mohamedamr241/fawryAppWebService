@@ -14,15 +14,23 @@ public class Transactions {
 		return transactions;
 	}
 	
-	public static ArrayList<TransactionEntity> getWalletTransactions()
+	public static TransactionEntity getTransactionById(int id)
 	{
-		ArrayList<TransactionEntity> walletTrans = new ArrayList<TransactionEntity>();
 		for(TransactionEntity t : transactions)
 		{
-			if(t.getPayMethod().equals("Wallet"))
-				walletTrans.add(t);
+			if(t.getTransId() == id)
+				return t;
 		}
-		return walletTrans;
+		return null;
+	}
+	
+	public static void removeTransactionById(int id)
+	{
+		for(TransactionEntity t : transactions)
+		{
+			if(t.getTransId() == id)
+				transactions.remove(t);
+		}
 	}
 
 }

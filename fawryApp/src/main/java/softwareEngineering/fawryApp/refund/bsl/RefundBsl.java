@@ -73,7 +73,7 @@ public class RefundBsl{
 		if(decision.equals("accept") || decision.equals("1"))
 		{
 			Wallet userWallet = Wallet.getUserWallet(refund.getrefundRequestList().get(index).getEmail());
-			userWallet.chargeViaCreditCard(rq.getAmount());
+			userWallet.chargeViaCreditCard(rq.getEmail(),rq.getAmount());
 			Account acc = User.getAccByEmail(rq.getEmail());
 			acc.addNotification("your refund request with transaction id " + transactionId  + " is accepted and your wallet balance is updated from " + userWallet.getPreviousBalance() + " $ to " + userWallet.getBalance() + " $");
 			returnMesg =  "Refund request with Id " + transactionId + " is accepted and user's wallet balance is updated from " + userWallet.getPreviousBalance() + " $ to " + userWallet.getBalance() + " $";

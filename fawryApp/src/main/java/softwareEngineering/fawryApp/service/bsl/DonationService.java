@@ -17,7 +17,8 @@ public class DonationService extends Services {
 	@Override
 	protected void setPayMethods() {
 		paymentMethods.add("CreditCard");
-		paymentMethods.add("Cash");		
+		paymentMethods.add("Cash");	
+		paymentMethods.add("Wallet");
 	}
 	@Override
 	protected void setProviders() {
