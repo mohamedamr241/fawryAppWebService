@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import softwareEngineering.fawryApp.bsl.TimeStampBsl;
 import softwareEngineering.fawryApp.bsl.Wallet;
 import softwareEngineering.fawryApp.models.Account;
+import softwareEngineering.fawryApp.models.Admin;
 import softwareEngineering.fawryApp.models.TransactionEntity;
 import softwareEngineering.fawryApp.models.Transactions;
 
@@ -29,8 +30,11 @@ public class WalletController{
 	}
 	
 	@GetMapping(value="/admin/WalletTransactions")
-	public ArrayList<TransactionEntity> WalletTransactions() {
-		return Transactions.getWalletTransactions();
+	public ArrayList<TransactionEntity> WalletTransactions(@RequestBody Admin ad) {
+		if(TimeStampBsl.checkValidationAdmin(ad.timestamp)) {
+			return Transactions.getWalletTransactions();			
+		}
+		return null;
 	}
 }
 

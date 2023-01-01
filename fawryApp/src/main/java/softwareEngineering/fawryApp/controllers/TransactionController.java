@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import softwareEngineering.fawryApp.bsl.PaymentBsl;
+import softwareEngineering.fawryApp.bsl.TimeStampBsl;
 import softwareEngineering.fawryApp.bsl.TransactionBsl;
+import softwareEngineering.fawryApp.models.Admin;
 import softwareEngineering.fawryApp.models.TransactionEntity;
 import softwareEngineering.fawryApp.models.Transactions;
 
@@ -31,7 +33,10 @@ public class TransactionController{
 		}
 	
 	@GetMapping(value="/admin/PaymentTransactions")
-	public ArrayList<TransactionEntity> paymentTransactions() {
-		return Transactions.getTransactions();
+	public ArrayList<TransactionEntity> paymentTransactions(@RequestBody Admin ad) {
+		if(TimeStampBsl.checkValidationAdmin(ad.timestamp)) {
+			return Transactions.getTransactions();			
+		}
+		return null;
 	}
 }
