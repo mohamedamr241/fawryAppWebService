@@ -39,7 +39,7 @@ public class TransactionController{
 	
 	@PostMapping(value="/admin/PaymentTransactions")
 	public ResponseEntity<ArrayList<TransactionEntity>> paymentTransactions(@RequestBody Admin ad) {
-		if(TimeStampBsl.checkValidationAdmin(ad.timestamp))
+		if(TimeStampBsl.checkValidationAdmin(ad.timeStamp))
 			return ResponseEntity.ok(Transactions.getTransactions());
 		return ResponseEntity.ok(null);
 	}

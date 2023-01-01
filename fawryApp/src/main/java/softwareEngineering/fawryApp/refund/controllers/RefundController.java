@@ -36,7 +36,7 @@ public class RefundController{
 	
 	@GetMapping(value = "/admin/refundRequests")
 	public ArrayList<TransactionEntity> refundRequests(@RequestBody Admin  ad) {
-		if(TimeStampBsl.checkValidationAdmin(ad.timestamp)) {
+		if(TimeStampBsl.checkValidationAdmin(ad.timeStamp)) {
 			return refundBsl.refund.getrefundRequestList();			
 		}
 		return null;
@@ -44,7 +44,7 @@ public class RefundController{
 	
 	@GetMapping(value = "/admin/refundTransactions")
 	public ArrayList<TransactionEntity> refundTransaction(@RequestBody Admin  ad) {
-		if(TimeStampBsl.checkValidationAdmin(ad.timestamp)) {
+		if(TimeStampBsl.checkValidationAdmin(ad.timeStamp)) {
 			return refundBsl.refund.getrefundedTransactions();
 		}
 		return null;
@@ -53,7 +53,7 @@ public class RefundController{
 	@GetMapping(value = "/admin/processRefund/{transId}")
 	public String proccessRefund(@PathVariable("transId") int transId,@RequestBody Admin  ad)
 	{
-		if(TimeStampBsl.checkValidationAdmin(ad.timestamp)) {
+		if(TimeStampBsl.checkValidationAdmin(ad.timeStamp)) {
 			return refundBsl.processRefund(transId);
 		}
 		return "you must signIn first";
@@ -62,7 +62,7 @@ public class RefundController{
 	@GetMapping(value = "/admin/processRefund/{transId}/{decision}")
 	public String accOrRej(@PathVariable("transId") int transId, @PathVariable("decision") String decision,@RequestBody Admin  ad)
 	{
-		if(TimeStampBsl.checkValidationAdmin(ad.timestamp)) {
+		if(TimeStampBsl.checkValidationAdmin(ad.timeStamp)) {
 			return refundBsl.accOrRej(decision, transId);
 		}
 		return "you must signIn first";

@@ -25,7 +25,7 @@ public class AdminController{
 	
 	@PostMapping(value="/admin/signOut")
 	public String signOut(@RequestBody Admin ad) {
-		return adminBsl.signOut(ad.timestamp);
+		return adminBsl.signOut(ad.timeStamp);
 	}
 }
 

@@ -4,7 +4,7 @@ import softwareEngineering.fawryApp.wallet.bsl.Wallet;
 import java.util.*;
 
 public class Account{
-	private String email, username, password, tmieStamp = "0";
+	private String email, username, password, timeStamp = "0";
 	private Wallet wallet;
 	private boolean isFirstTrans = true;
 	private ArrayList<String> notifications = new ArrayList<String>();
@@ -28,10 +28,10 @@ public class Account{
         this.password = password;
     }
     public String gettimeStamp() {
-        return tmieStamp;
+        return timeStamp;
     }
     public void setTmieStamp(String tmieStamp) {
-        this.tmieStamp = tmieStamp;
+        this.timeStamp = tmieStamp;
     }
     public Wallet getWallet() {
         return wallet;

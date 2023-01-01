@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import softwareEngineering.fawryApp.admin.models.Admin;
 import softwareEngineering.fawryApp.timeStampBsl.TimeStampBsl;
 import softwareEngineering.fawryApp.transaction.models.TransactionEntity;
 import softwareEngineering.fawryApp.transaction.models.Transactions;
@@ -32,8 +33,11 @@ public class WalletController{
 	}
 	
 	@GetMapping(value="/admin/WalletTransactions")
-	public ResponseEntity<ArrayList<TransactionEntity>> WalletTransactions() {
-		return ResponseEntity.ok(Transactions.getWalletTransactions());
+	public ResponseEntity<ArrayList<TransactionEntity>> WalletTransactions(@RequestBody Admin ad) {
+		if(TimeStampBsl.checkValidationAdmin(ad.timeStamp)) 
+			return ResponseEntity.ok(Transactions.getWalletTransactions());
+		return null;
+		
 	}
 }
 

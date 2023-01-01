@@ -26,7 +26,7 @@ public class TimeStampBsl{
 		return timeStamp;
 	}
 	public static boolean checkValidationAdmin(String time) {
-		if(Admin.timeStamp.equals(time)) {
+		if(Admin.storedTimeStamp.equals(time)) {
 			return true;
 		}
 		return false;

@@ -29,7 +29,7 @@ public class DiscountController{
 	
 	@GetMapping(value="/admin/discounts/{serviceName}/{discount}")
 	public String addDiscount(@PathVariable("serviceName") String serviceName,@PathVariable("discount") int discount,@RequestBody Admin ad) {
-		if(TimeStampBsl.checkValidationAdmin(ad.timestamp)) {
+		if(TimeStampBsl.checkValidationAdmin(ad.timeStamp)) {
 			return discountbsl.addDiscount(serviceName, discount);			
 		}
 		return "you must signIn first";

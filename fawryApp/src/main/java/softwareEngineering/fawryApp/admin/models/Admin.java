@@ -2,8 +2,8 @@ package softwareEngineering.fawryApp.admin.models;
 
 public class Admin{
 	private String email = "admin@gmail.com", password = "0000";
-	public static String timeStamp="0";
-	public String timestamp;
+	public static String storedTimeStamp="0";
+	public String timeStamp;
 	
 	public void setAdminPass(String password)
 	{
