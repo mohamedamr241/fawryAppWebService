@@ -1,10 +1,11 @@
 package softwareEngineering.fawryApp.models;
 
 public class TransactionEntity {
-	private int transId;
-	private double amount;
-	private String serviceName, email;
-	private String serviceProvider, payMethod;
+	public int transId;
+	public double amount;
+	public String serviceName;
+	public String email;
+	public String serviceProvider, payMethod,timeStamp;
 	public TransactionEntity(int transId, double amount,String serviceProvider, String serviceName, String userEmail, String payMethod) {
 		this.transId = transId;
 		this.amount = amount;
@@ -14,23 +15,12 @@ public class TransactionEntity {
 		this.payMethod = payMethod;
 	}
 	
-    public String getServiceProvider() {
-        return serviceProvider;
-    }
-    public String getPayMethod() {
-        return payMethod;
-    }
-    public int getTransId() {
-        return transId;
-    }
-    public double getAmount() {
-        return amount;
-    }
-    public String getServiceName() {
-        return serviceName;
-    }
-    public String getEmail() {
-        return email;
-    }
-
+//	public String toString() {
+//		return "Email: " + email +
+//	    		", Transaction No: " + transId + 
+//	    		", Service name: " + serviceName +
+//	    		", Service provider name: " + serviceProvider +
+//	           ", Amount: " + amount;
+//	    
+//	}
 }

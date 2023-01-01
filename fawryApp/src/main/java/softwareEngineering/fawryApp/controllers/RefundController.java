@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import softwareEngineering.fawryApp.bsl.RefundBsl;
+import softwareEngineering.fawryApp.bsl.TimeStampBsl;
+import softwareEngineering.fawryApp.models.Admin;
 import softwareEngineering.fawryApp.models.TransactionEntity;
 
 
@@ -24,29 +26,44 @@ public class RefundController{
 	@PostMapping(value = "/user/requestRefund")
 	public String requestRefund(@RequestBody TransactionEntity obj) 
 	{
-		return refundBsl.requestRefund(obj);
+		if(TimeStampBsl.checkValidation(obj.timeStamp,obj.email)) {
+			return refundBsl.requestRefund(obj);			
+		}
+		return "you must signIn first";
 	}
 	
 	@GetMapping(value = "/admin/refundRequests")
-	public ArrayList<TransactionEntity> refundRequests() {
-		return refundBsl.refund.getrefundRequestList();
+	public ArrayList<TransactionEntity> refundRequests(@RequestBody Admin  ad) {
+		if(TimeStampBsl.checkValidationAdmin(ad.timestamp)) {
+			return refundBsl.refund.getrefundRequestList();			
+		}
+		return null;
 	}
 	
 	@GetMapping(value = "/admin/refundTransactions")
-	public ArrayList<TransactionEntity> refundTransaction() {
-		return refundBsl.refund.getrefundedTransactions();
+	public ArrayList<TransactionEntity> refundTransaction(@RequestBody Admin  ad) {
+		if(TimeStampBsl.checkValidationAdmin(ad.timestamp)) {
+			return refundBsl.refund.getrefundedTransactions();
+		}
+		return null;
 	}
 	
 	@GetMapping(value = "/admin/processRefund/{transId}")
-	public String proccessRefund(@PathVariable("transId") int transId)
+	public String proccessRefund(@PathVariable("transId") int transId,@RequestBody Admin  ad)
 	{
-		return refundBsl.processRefund(transId);
+		if(TimeStampBsl.checkValidationAdmin(ad.timestamp)) {
+			return refundBsl.processRefund(transId);
+		}
+		return "you must signIn first";
 	}
 	
 	@GetMapping(value = "/admin/processRefund/{transId}/{decision}")
-	public String accOrRej(@PathVariable("transId") int transId, @PathVariable("decision") String decision)
+	public String accOrRej(@PathVariable("transId") int transId, @PathVariable("decision") String decision,@RequestBody Admin  ad)
 	{
-		return refundBsl.accOrRej(decision, transId);
+		if(TimeStampBsl.checkValidationAdmin(ad.timestamp)) {
+			return refundBsl.accOrRej(decision, transId);
+		}
+		return "you must signIn first";
 	}
 
 }

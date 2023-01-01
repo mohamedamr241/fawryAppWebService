@@ -24,6 +24,9 @@ public class AdminController{
 		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Email or password is invalid");
 	}
 	
-
+	@PostMapping(value="/admin/signOut")
+	public String signOut(@RequestBody Admin ad) {
+		return adminBsl.signOut(ad.timestamp);
+	}
 }
 

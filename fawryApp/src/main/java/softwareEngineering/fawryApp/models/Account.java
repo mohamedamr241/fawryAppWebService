@@ -4,45 +4,11 @@ import softwareEngineering.fawryApp.bsl.Wallet;
 import java.util.*;
 
 public class Account{
-	private String email, username, password;
-	private Wallet wallet;
-	private boolean isFirstTrans = true;
-	private ArrayList<String> notifications = new ArrayList<String>();
+	public String email, username, password, CCN, creditCardNum;
+	public Wallet wallet;
+	public boolean isFirstTrans = true;
+	public ArrayList<String> notifications = new ArrayList<String>();
+	public String timeStamp="0";
+	//setters and getters
 	
-    public String getEmail() {
-        return email;
-    }
-    public void setEmail(String email) {
-        this.email = email;
-    }
-    public String getUsername() {
-        return username;
-    }
-    public void setUsername(String username) {
-        this.username = username;
-    }
-    public String getPassword() {
-        return password;
-    }
-    public void setPassword(String password) {
-        this.password = password;
-    }
-    public Wallet getWallet() {
-        return wallet;
-    }
-    public void createWallet() {
-        wallet = new Wallet();
-    }
-    public boolean isFirstTrans() {
-        return isFirstTrans;
-    }
-    public void setFirstTrans(boolean isFirstTrans) {
-        this.isFirstTrans = isFirstTrans;
-    }
-    public ArrayList<String> getNotifications() {
-        return notifications;
-    }
-    public void addNotification(String notification) {
-        notifications.add(notification);
-    }	
 }

@@ -1,28 +1,18 @@
 package softwareEngineering.fawryApp.models;
 
 public class Admin{
-	private String email = "admin@gmail.com", password = "0000";
-	
-	public void setAdminPass(String password)
-	{
-		this.password = password;
-	}
-	
-	
-	public void setAdminEmail(String email)
-	{
-		this.email = email;
-	}
-	
-	public String getAdminEmail()
-	{
-		return email;
-	}
-	
-	public String getAdminPass()
-	{
-		return password;
-	}
+	public String email = "admin@gmail.com", password = "0000";
+	public static String timeStamp="0";
+	public String timestamp;
+//	public static String getAdminEmail()
+//	{
+//		return email;
+//	}
+//	
+//	public static String getAdminPass()
+//	{
+//		return password;
+//	}
 
 
 

@@ -3,6 +3,8 @@ package softwareEngineering.fawryApp.bsl;
 import java.util.*;
 import org.springframework.stereotype.Service;
 
+import softwareEngineering.fawryApp.models.Discounts;
+
 @Service
 public class DiscountBsl{
 	
@@ -10,22 +12,21 @@ public class DiscountBsl{
 	
 	public Map<String, String> getDiscounts() {
 		Map<String, String> disc = new HashMap<String,String>();
-		for(Map.Entry<String, Integer> entry : specificDis.getDiscounts().entrySet())
+		for(Map.Entry<String, Integer> entry : Discounts.getDiscounts().entrySet())
 		{		
 			disc.put(entry.getKey() + " service", " has discount "+entry.getValue()+" %");
 		}
 		return disc;
 	}
 	
-	public boolean addDiscount(String serviceName, int discount) {
+	public String addDiscount(String serviceName, int discount) {
 		
-		String serveName = Services.getServiceNameById(serviceName);
-		if(Services.displayServices().contains(serveName))
+		if(Services.displayServices().contains(serviceName))
 		{
-			specificDis.addDiscount(serveName, discount);
-			UserBsl.notify(serveName + " has discount " + discount + " %");
-			return true;
+			Discounts.addDiscount(serviceName, discount);
+			UserBsl.notify(serviceName + " has discount " + discount + " %");
+			return "Discount Added Successfully";
 		}
-		return false;
+		return "This service is not availabe";
 	}
 }

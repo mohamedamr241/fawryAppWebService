@@ -8,7 +8,7 @@ import softwareEngineering.fawryApp.models.Transactions;
 import softwareEngineering.fawryApp.models.User;
 
 public class PaymentBsl{
-	public String email, CCN, creditCardNum, mobileNumber;
+	public String email, CCN, creditCardNum, mobileNumber,timeStamp;
 	public double amount;
 	//String timeStamp;
 	//validate data
