@@ -2,7 +2,6 @@ package softwareEngineering.fawryApp.bsl;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoField;
-import java.util.Map;
 
 import softwareEngineering.fawryApp.models.Account;
 import softwareEngineering.fawryApp.models.Admin;
@@ -11,7 +10,7 @@ import softwareEngineering.fawryApp.models.User;
 public class TimeStampBsl{
 	public static boolean checkValidation(String time,String email) {
 		for(Account acc: User.getAccounts()) {
-			if(acc.email.equals(email) && acc.timeStamp.equals(time)) {
+			if(acc.getEmail().equals(email) && acc.gettimeStamp().equals(time)) {
 				return true;
 			}
 		}

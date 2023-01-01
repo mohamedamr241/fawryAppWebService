@@ -13,16 +13,16 @@ public class AdminBsl{
 	private Admin admin = new Admin();
 	public String signIn(Admin ad)
 	{
-		if(ad.email.equals(admin.email) && ad.password.equals(admin.password))
+		if(ad.getAdminEmail().equals(admin.getAdminEmail()) && ad.getAdminPass().equals(admin.getAdminPass()))
 			if(Admin.timeStamp.equals("0")) {
 				String timeStamp=TimeStampBsl.timeStampCreation();
 				Admin.timeStamp=timeStamp;
-				return "your timeStamp is "+timeStamp;
+				return "logged in successfully, your timeStamp is "+timeStamp;
 			}
 			else {
 				return "you already signedIn";
 			}
-		return "Email or password incorrent";
+		return "Email or password is invalid";
 	}
 	public String signOut(String timeStamp) {
 		if(Admin.timeStamp.equals(timeStamp)) {

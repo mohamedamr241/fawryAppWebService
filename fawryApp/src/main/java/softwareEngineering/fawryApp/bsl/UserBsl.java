@@ -15,11 +15,11 @@ public class UserBsl{
 		
 		for (Account a : User.getAccounts())
 		{
-			if(a.email.equals(acc.email) && a.password.equals(acc.password)) {
-				if(a.timeStamp.equals("0")) {
-					String timeStamp=TimeStampBsl.timeStampCreation();
-					a.timeStamp=timeStamp;
-					return "your timeStamp is "+timeStamp;					
+			if(a.getEmail().equals(acc.getEmail()) && a.getPassword().equals(acc.getPassword())) {
+				if(a.gettimeStamp().equals("0")) {
+					String timeStamp = TimeStampBsl.timeStampCreation();
+					a.setTmieStamp(timeStamp);
+					return "logged in successfully, " + "your time stamp: " + a.gettimeStamp();					
 				}
 				else {
 					return "you already signedIn";
@@ -29,32 +29,36 @@ public class UserBsl{
 		return "Please enter correct username and password";
 	}
 	
-	public String signUp(Account acc)
+
+	public boolean signUp(Account acc)
 	{
-		
 		for (Account a : User.getAccounts())
 		{
-			if(a.username.equals(acc.username) || a.email.equals(acc.email))
-				return "Email already exists";
+			if(a.getUsername().equals(acc.getUsername()) || a.getEmail().equals(acc.getEmail()))
+				return false;
 		}
-		acc.wallet = new Wallet();
+		
+		acc.createWallet();
 		user.addAccount(acc);
-		return "Account created successfully";
+		return true;
 	}
+	
+	
 	public String signOut(String timeStamp) {
 		for(Account acc: User.getAccounts()) {
-			if(acc.timeStamp.equals(timeStamp)) {
-				acc.timeStamp="0";
+			if(acc.gettimeStamp().equals(timeStamp)) {
+				acc.setTmieStamp("0");;
 				return "logged out successfully";
 			}
 		}
 		return "logging out failed";
 	}
+
 	public static void notify(String message)
 	{
 		for(Account acc : User.getAccounts())
 		{
-			acc.notifications.add(message);
+			acc.addNotification(message);
 		}
 	}
 

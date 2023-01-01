@@ -26,7 +26,7 @@ public class RefundController{
 	@PostMapping(value = "/user/requestRefund")
 	public String requestRefund(@RequestBody TransactionEntity obj) 
 	{
-		if(TimeStampBsl.checkValidation(obj.timeStamp,obj.email)) {
+		if(TimeStampBsl.checkValidation(obj.getTimeStamp(),obj.getEmail())) {
 			return refundBsl.requestRefund(obj);			
 		}
 		return "you must signIn first";

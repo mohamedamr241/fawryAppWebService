@@ -19,9 +19,7 @@ public class AdminController{
 	
 	@PostMapping(value="/admin/signIn")
 	public ResponseEntity<String> signIn(@RequestBody Admin ad) {
-		if(adminBsl.signIn(ad))
-			return ResponseEntity.ok("logged in successfully");
-		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Email or password is invalid");
+		return ResponseEntity.ok(adminBsl.signIn(ad));
 	}
 	
 	@PostMapping(value="/admin/signOut")

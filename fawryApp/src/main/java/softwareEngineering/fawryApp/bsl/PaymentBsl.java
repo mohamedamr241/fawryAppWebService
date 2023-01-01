@@ -10,9 +10,6 @@ import softwareEngineering.fawryApp.models.User;
 public class PaymentBsl{
 	public String email, CCN, creditCardNum, mobileNumber,timeStamp;
 	public double amount;
-	//String timeStamp;
-	//validate data
-	
 	double disPrice;
 	static int transactionCnt = 0;
 	Map<String, String> transactionDetails = new HashMap<String, String>();
@@ -20,7 +17,7 @@ public class PaymentBsl{
 	public Map<String, String> makePurchase(Services service, String serviceName, String serviceProvider, String paymentMethod) {
 
 	Account userAcc = User.getAccByEmail(email);
-	if(userAcc == null)//timeStamp
+	if(userAcc == null)
 	{
 		transactionDetails.put(email, "not signedIn");
 		return transactionDetails;
